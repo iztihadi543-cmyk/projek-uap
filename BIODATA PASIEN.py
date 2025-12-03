@@ -1,4 +1,37 @@
-data_pasien = []
+#DATA PENYIMPANAN BIODATA PASIEN
+data_pasien = []  
+
+# ==========================================
+# SIMPAN DATA KE FILE
+# ==========================================
+def save_data():
+    try:
+        with open("data_pasien.txt", "w", encoding="utf-8") as file:
+            for pasien in data_pasien:
+                baris = f"{pasien['nama']},{pasien['tanggal_lahir']},{pasien['diagnosis']}\n"
+                file.write(baris)
+        print("Data berhasil disimpan ke data_pasien.txt\n")
+    except Exception as e:
+        print(f"Error saat menyimpan data: {e}")
+
+# ==========================================
+# MUAT DATA DARI FILE
+# ==========================================
+def muat_data():
+    try:
+        with open("data_pasien.txt", "r", encoding="utf-8") as file:
+            for baris in file:
+                data = baris.strip().split(",")
+                if len(data) == 3:
+                    pasien = {
+                        "nama": data[0],
+                        "tanggal_lahir": data[1],
+                        "diagnosis": data[2]
+                    }
+                    data_pasien.append(pasien)
+        print("Data berhasil dimuat dari file!\n")
+    except FileNotFoundError:
+        print("File belum ada, akan dibuat saat menyimpan...\n")
 
 def validasi_tanggal_lahir(tanggal_lahir):
     """
