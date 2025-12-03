@@ -177,6 +177,47 @@ def hapus():
     except Exception as e:
         print(f"⚠️ Terjadi kesalahan saat menghapus data: {e}")
 
+
+def cari_data():
+    print("\n==== Cari Data Pasien ====")
+    if not data_pasien:
+        print("Belum ada data pasien untuk dicari.")
+        return
+
+    keyword = input("Masukkan Nama/Diagnosa pasien yang dicari: ").strip().lower()
+    
+    # Pencarian tanpa keyword akan menampilkan semua
+    if not keyword:
+        print("Masukkan keyword yang valid.")
+        return
+
+    hasil_cari = []
+    # Menggunakan for dan if untuk filter data
+    for pasien in data_pasien:
+        nama_lower = pasien["nama"].lower()
+        diagnosis_lower = pasien["diagnosis"].lower()
+        
+        # Percabangan yang menentukan filter (wajib ada)
+        if keyword in nama_lower or keyword in diagnosis_lower:
+            hasil_cari.append(pasien)
+
+    if hasil_cari:
+        print(f"\n✅ Ditemukan {len(hasil_cari)} data pasien yang cocok:")
+        # Menggunakan fungsi tampilkan_data (atau fungsi tampilan yang baru)
+        tampilkan_hasil(hasil_cari) 
+    else:
+        print("❌ Data pasien tidak ditemukan dengan keyword tersebut.")
+
+# Catatan: Perlu fungsi bantu baru untuk menampilkan hasil pencarian
+def tampilkan_hasil(list_data):
+    # Logika untuk menampilkan data dari list yang difilter
+    for i, pasien in enumerate(list_data, 1):
+        print(f"{i}. Nama: {pasien['nama']}")
+        print(f"   Tgl Lahir: {pasien['tanggal_lahir']}")
+        print(f"   Diagnosa: {pasien['diagnosis']}")
+        print("-" * 50)
+
+
 # --- FUNGSI MENU UTAMA ---
 def menu():
     while True:
@@ -187,7 +228,8 @@ def menu():
         print("2. Tampilkan Data Pasien")
         print("3. Edit Data Pasien")
         print("4. Hapus Data Pasien")
-        print("5. Keluar")
+        print("5. Cari Atau Filter Data Pasien")
+        print("6. Keluar")
         print("===================================")
 
         pilihan = input("Pilih menu (1-5): ")
@@ -202,6 +244,8 @@ def menu():
             elif pilihan == '4':
                 hapus()
             elif pilihan == '5':
+                cari_data()
+            elif pilihan == '6':
                 print("👋 Keluar dari program. Sampai jumpa!")
                 break
             else:
