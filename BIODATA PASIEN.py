@@ -174,6 +174,7 @@ def hapus():
         else:
              print("❌ Data pasien tidak ditemukan.")
 
+
     except Exception as e:
         print(f"⚠️ Terjadi kesalahan saat menghapus data: {e}")
 
@@ -258,3 +259,4 @@ def menu():
 # --- MENJALANKAN PROGRAM ---
 if __name__ == "__main__":
     menu()
+    #TES MAU COMMIT
