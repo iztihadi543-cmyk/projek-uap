@@ -1,0 +1,7 @@
+Ranu habis di selingkuhin
+/bin/python "/home/iztihadi/Semester-1/STUDI CASE/STUDY CASE 11.py"
+/bin/python "/home/iztihadi/Semester-1/STUDI CASE/STUDY CASE 11.py"
+hadi
+/bin/python "/home/iztihadi/Semester-1/STUDI CASE/STUDY CASE 11.py"
+clear
+clear
