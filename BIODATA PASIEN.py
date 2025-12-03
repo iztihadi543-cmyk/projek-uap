@@ -104,11 +104,11 @@ def edit():
         if not data_pasien:
             return
 
-        nama_cari = input("Masukkan Nama Pasien yang Ingin Diedit: ")
+        nama_cari = input("Masukkan Nama Pasien yang Ingin Diedit: ").strip().lower()
 
         pasien_ditemukan = None
         for pasien in data_pasien:
-            if pasien["nama"] == nama_cari:
+            if pasien["nama"].lower() == nama_cari:
                 pasien_ditemukan = pasien
                 break
         
@@ -159,12 +159,12 @@ def hapus():
         if not data_pasien:
             return
 
-        nama_cari = input("Masukkan Nama Pasien yang Ingin Dihapus: ")
+        nama_cari = input("Masukkan Nama Pasien yang Ingin Dihapus: ").strip().lower()
         
         dihapus = False
         # Iterasi terbalik untuk menghapus elemen dari list saat iterasi
         for i in range(len(data_pasien) - 1, -1, -1):
-            if data_pasien[i]["nama"] == nama_cari:
+            if data_pasien[i]["nama"].lower() == nama_cari:
                 del data_pasien[i] # Hapus item dari list global
                 dihapus = True
                 break 
