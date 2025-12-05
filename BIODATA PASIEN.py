@@ -104,6 +104,7 @@ def tambah_data():
             "diagnosis": diagnosis
         }
         data_pasien.append(pasien)
+        save_data()
         print("✅ Data pasien berhasil ditambahkan.")
 
     except ValueError as e:
@@ -176,6 +177,7 @@ def edit():
             if diagnosa_baru.strip() != "":
                 pasien_ditemukan["diagnosis"] = diagnosa_baru
 
+            save_data()
             print("✅ Data pasien berhasil diupdate.")
             return
         
@@ -203,6 +205,7 @@ def hapus():
                 break 
 
         if dihapus:
+            save_data()
             print("✅ Data pasien berhasil dihapus.")
         else:
              print("❌ Data pasien tidak ditemukan.")
@@ -291,5 +294,6 @@ def menu():
 
 # --- MENJALANKAN PROGRAM ---
 if __name__ == "__main__":
+    muat_data()
     menu()
     #TES MAU COMMIT
