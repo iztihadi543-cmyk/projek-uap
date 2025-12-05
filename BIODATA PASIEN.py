@@ -2,26 +2,28 @@
 data_pasien = []  
 
 # ==========================================
-# SIMPAN DATA KE FILE
+# SIMPAN DATA KE FILE (DIPERBAIKI)
 # ==========================================
 def save_data():
     try:
         with open("data_pasien.txt", "w", encoding="utf-8") as file:
             for pasien in data_pasien:
-                baris = f"{pasien['nama']},{pasien['tanggal_lahir']},{pasien['diagnosis']}\n"
+                # PERBAIKAN: Menggunakan separator pipe (|) agar aman dari koma pada nama
+                baris = f"{pasien['nama']}|{pasien['tanggal_lahir']}|{pasien['diagnosis']}\n"
                 file.write(baris)
         print("Data berhasil disimpan ke data_pasien.txt\n")
     except Exception as e:
         print(f"Error saat menyimpan data: {e}")
 
 # ==========================================
-# MUAT DATA DARI FILE
+# MUAT DATA DARI FILE (DIPERBAIKI)
 # ==========================================
 def muat_data():
     try:
         with open("data_pasien.txt", "r", encoding="utf-8") as file:
             for baris in file:
-                data = baris.strip().split(",")
+                # PERBAIKAN: Split menggunakan pipe (|)
+                data = baris.strip().split("|")
                 if len(data) == 3:
                     pasien = {
                         "nama": data[0],
@@ -112,16 +114,19 @@ def tambah_data():
     except Exception as e:
         print(f"⚠️ Terjadi error yang tidak diketahui: {e}")
 
-# --- FUNGSI TAMPILKAN DATA ---
-def tampilkan_data():
+# --- FUNGSI TAMPILKAN DATA (DIPERBAIKI: DIGABUNG) ---
+def tampilkan_data(data_source=None):
+    # Jika data_source tidak diisi, pakai data_pasien utama
+    list_pasien = data_source if data_source is not None else data_pasien
+
     print("\n==== Data Pasien ====")
     try:
-        if not data_pasien:
-            print("Belum ada data pasien.")
+        if not list_pasien:
+            print("Tidak ada data pasien untuk ditampilkan.")
             return
         
         print("-" * 50)
-        for i, pasien in enumerate(data_pasien, 1):
+        for i, pasien in enumerate(list_pasien, 1):
             print(f"{i}. Nama: {pasien['nama']}")
             print(f"   Tgl Lahir: {pasien['tanggal_lahir']}")
             print(f"   Diagnosa: {pasien['diagnosis']}")
@@ -205,7 +210,7 @@ def hapus():
                 break 
 
         if dihapus:
-            save_data()
+            save_data() # Sudah diperbaiki: menggunakan tanda kurung ()
             print("✅ Data pasien berhasil dihapus.")
         else:
              print("❌ Data pasien tidak ditemukan.")
@@ -223,36 +228,26 @@ def cari_data():
 
     keyword = input("Masukkan Nama/Diagnosa pasien yang dicari: ").strip().lower()
     
-    # Pencarian tanpa keyword akan menampilkan semua
     if not keyword:
         print("Masukkan keyword yang valid.")
         return
 
     hasil_cari = []
-    # Menggunakan for dan if untuk filter data
     for pasien in data_pasien:
         nama_lower = pasien["nama"].lower()
         diagnosis_lower = pasien["diagnosis"].lower()
         
-        # Percabangan yang menentukan filter (wajib ada)
         if keyword in nama_lower or keyword in diagnosis_lower:
             hasil_cari.append(pasien)
 
     if hasil_cari:
         print(f"\n✅ Ditemukan {len(hasil_cari)} data pasien yang cocok:")
-        # Menggunakan fungsi tampilkan_data (atau fungsi tampilan yang baru)
-        tampilkan_hasil(hasil_cari) 
+        # PERBAIKAN: Memanggil tampilkan_data dengan parameter list hasil cari
+        tampilkan_data(hasil_cari) 
     else:
         print("❌ Data pasien tidak ditemukan dengan keyword tersebut.")
 
-# Catatan: Perlu fungsi bantu baru untuk menampilkan hasil pencarian
-def tampilkan_hasil(list_data):
-    # Logika untuk menampilkan data dari list yang difilter
-    for i, pasien in enumerate(list_data, 1):
-        print(f"{i}. Nama: {pasien['nama']}")
-        print(f"   Tgl Lahir: {pasien['tanggal_lahir']}")
-        print(f"   Diagnosa: {pasien['diagnosis']}")
-        print("-" * 50)
+# (PERBAIKAN: FUNGSI tampilkan_hasil DIHAPUS KARENA SUDAH DIGABUNG)
 
 
 # --- FUNGSI MENU UTAMA ---
@@ -269,7 +264,8 @@ def menu():
         print("6. Keluar")
         print("===================================")
 
-        pilihan = input("Pilih menu (1-5): ")
+        # PERBAIKAN: Update teks instruksi menjadi 1-6
+        pilihan = input("Pilih menu (1-6): ")
 
         try:
             if pilihan == '1':
@@ -286,7 +282,7 @@ def menu():
                 print("👋 Keluar dari program. Sampai jumpa!")
                 break
             else:
-                print("⚠️ Pilihan menu tidak valid! Silakan masukkan angka antara 1-5.")
+                print("⚠️ Pilihan menu tidak valid! Silakan masukkan angka antara 1-6.")
         
         except Exception as e:
             print(f"⚠️ Terjadi error yang tidak diketahui: {e}")
@@ -296,4 +292,3 @@ def menu():
 if __name__ == "__main__":
     muat_data()
     menu()
-    #TES MAU COMMIT
