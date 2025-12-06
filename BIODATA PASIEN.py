@@ -4,7 +4,7 @@ data_pasien = []
 # ======== SIMPAN DATA ========
 def simpan_data():
     try:
-        with open("data_pasien.txt", "w") as file:  # overwrite agar format rapi
+        with open("data_pasien.txt", "a") as file:  # overwrite agar format rapi
             for pasien in data_pasien:
                 file.write(f"{pasien['nama']},{pasien['tanggal_lahir']},{pasien['alamat']},{pasien['diagnosa']}\n")
         print("💾 Data pasien berhasil disimpan.")
@@ -150,6 +150,22 @@ def cari():
     else:
         print("❌ Tidak ada data yang cocok.")
 
+def load_data():
+    try:
+        with open("data_pasien.txt", "r") as file:
+            for line in file:
+                nama, tanggal_lahir, alamat, diagnosa = line.strip().split(",")
+                data_pasien.append({
+                    "nama": nama,
+                    "tanggal_lahir": tanggal_lahir,
+                    "alamat": alamat,
+                    "diagnosa": diagnosa
+                })
+        print("Data pasien berhasil dimuat dari file.")
+    except FileNotFoundError:
+        print("File data_pasien.txt tidak ditemukan. Memulai dengan data kosong.")
+    except Exception as e:
+        print(f"Terjadi kesalahan saat memuat data: {e}")
 
 # ======== MENU ========
 def menu():
@@ -179,4 +195,5 @@ def menu():
 
 # ======== JALANKAN ========
 muat_data()
+load_data()
 menu()
