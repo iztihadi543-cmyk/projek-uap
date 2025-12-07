@@ -1,3 +1,15 @@
+# ==========================================
+# PROJEK AKHIR DASAR PEMROGRAMAN (KELOMPOK UJANG-4)
+#Data Pasien Rumah Sakit
+# Anggota:
+# 1. Iztihadi - 2517052006
+# 2. Ramadian Pasesa - 2517052034
+# 3. Arifah Kamilah Aulia - 2517052041
+# ==========================================
+
+
+
+
 data_pasien = []
 
 
@@ -109,10 +121,10 @@ def edit():
         if pasien['nama'].lower() == nama_cari.lower():
             print("✔️ Data ditemukan!")
 
-            pasien['nama'] = input("Nama baru: ") or pasien['nama']
-            pasien['tanggal_lahir'] = input("Tanggal lahir baru (DD-MM-YYYY): ") or pasien['tanggal_lahir']
-            pasien['alamat'] = input("Alamat baru: ") or pasien['alamat']
-            pasien['diagnosa'] = input("Diagnosa baru: ") or pasien['diagnosa']
+            pasien['nama'] = input("Nama baru:(kosongkan jika tidak berubah) ") or pasien['nama']
+            pasien['tanggal_lahir'] = input("Tanggal lahir baru (DD-MM-YYYY):(Kosongkan jika tidak berubah) ") or pasien['tanggal_lahir']
+            pasien['alamat'] = input("Alamat baru:(Kosongkan jika tidak berubah) ") or pasien['alamat']
+            pasien['diagnosa'] = input("Diagnosa baru:(Kosongkan jika tidak berubah) ") or pasien['diagnosa']
 
             simpan_data()
             print("✔️ Data berhasil diperbarui.")
@@ -146,20 +158,30 @@ def cari():
     if hasil:
         print(f"\n✔️ Ditemukan {len(hasil)} data:")
         for pasien in hasil:
-            print(f"- {pasien['nama']} ({pasien['diagnosa']})")
+            print(f"\n Ditemukan {len(hasil)} data cocok:")
+        print("-" * 50)
+        for i, pasien in enumerate(hasil, 1):
+            print(f"{i}. {pasien['nama']}")
+            print(f" Tanggal Lahir: {pasien['tanggal_lahir']}")
+            print(f" Alamat: {pasien['alamat']}")
+            print(f" Diagnosa: {pasien['diagnosa']}")
+            print("-" * 50)
     else:
         print("❌ Tidak ada data yang cocok.")
 
 # ======== MENU ========
 def menu():
     while True:
-        print("\n=== 🏥 Menu Manajemen Data Pasien ===")
-        print("1. Tambah Data")
-        print("2. Tampilkan Data")
-        print("3. Edit Data")
-        print("4. Hapus Data")
-        print("5. Cari Data")
-        print("6. Keluar")
+        print("\n==========================================")
+        print("Selamat Datang Disistem Manajemen RS Ujang")
+        print("==========================================")
+        print("=== 🏥 Menu Manajemen Data Pasien ===")
+        print("1. Tambah Data Pasien")
+        print("2. Tampilkan Data Pasien")
+        print("3. Edit Data Pasien")
+        print("4. Hapus Data Pasien")
+        print("5. Cari Data Pasien")
+        print("6. Keluar Sistem")
 
         pilihan = input("Pilih menu (1-6): ")
 
