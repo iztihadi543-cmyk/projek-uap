@@ -157,8 +157,7 @@ def cari():
 
     if hasil:
         print(f"\n✔️ Ditemukan {len(hasil)} data:")
-        for pasien in hasil:
-            print(f"\n Ditemukan {len(hasil)} data cocok:")
+        
         print("-" * 50)
         for i, pasien in enumerate(hasil, 1):
             print(f"{i}. {pasien['nama']}")
